@@ -1,0 +1,13 @@
+{
+  "name": "support-ticket-app",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "turbo run dev",
+    "format": "turbo run format",
+    "lint": "turbo run lint"
+  },
+  "packageManager": "pnpm@10.10.0",
+  "devDependencies": {
+    "turbo": "^2.5.3"
+  }
+}
