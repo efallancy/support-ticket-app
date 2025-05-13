@@ -1,6 +1,6 @@
 import type { SupportTicket } from '../schemas/support-ticket.schema';
 
-type SupportTicketTableProps = {
+export type SupportTicketTableProps = {
   tickets: SupportTicket[];
   onEdit: (ticket: SupportTicket) => void;
   onDelete: (ticket: SupportTicket) => void;

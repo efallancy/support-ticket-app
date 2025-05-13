@@ -1,4 +1,6 @@
+import { openai } from '../client/openai.js';
 import { prisma } from '../client/prisma.js';
+import { config } from '../config.js';
 import {
   SupportTicketCreate,
   SupportTicketUpdate,
@@ -72,10 +74,58 @@ const deleteSupportTicketById = async (id: string) => {
   }
 };
 
+const getSupportTicketSummaryAvailability = () => {
+  // Consider summary feature is available when OpenAI API key is provided
+  return config.openai.apiKey ? true : false;
+};
+
+const getHighPrioritySupportTicketSummary = async () => {
+  const isAvailable = getSupportTicketSummaryAvailability();
+
+  if (!isAvailable) {
+    throw new Error('Summary feature is not available');
+  }
+
+  const supportTickets = await prisma.supportTicket.findMany({
+    where: {
+      priority: 'HIGH',
+      OR: [
+        {
+          status: 'OPEN',
+        },
+        {
+          status: 'IN_PROGRESS',
+        },
+      ],
+    },
+  });
+
+  if (supportTickets.length > 0) {
+    const summary = await openai.responses.create({
+      model: 'o4-mini',
+      instructions: 'You are an expert in triaging support tickets',
+      input: [
+        `Summarize the following support tickets and provide actionable suggestion:`,
+        '\n',
+        ...supportTickets.map(
+          (supportTicket) =>
+            `Title: ${supportTicket.description}\nDescription: ${supportTicket.description}\n`
+        ),
+      ].join('\n'),
+    });
+
+    return summary.output_text;
+  } else {
+    return 'No immediate support ticket that requires attention';
+  }
+};
+
 export {
   createSupportTicket,
   deleteSupportTicketById,
   getAllSupportTickets,
+  getHighPrioritySupportTicketSummary,
   getSupportTicketById,
+  getSupportTicketSummaryAvailability,
   updateSupportTicketById,
 };

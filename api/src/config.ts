@@ -6,11 +6,17 @@ const configSchema = z.object({
   server: z.object({
     port: z.number().default(3000),
   }),
+  openai: z.object({
+    apiKey: z.optional(z.string()),
+  }),
 });
 
 const maybeValidConfig = {
   server: {
     port: process.env.PORT,
+  },
+  openai: {
+    apiKey: process.env.OPENAI_API_KEY,
   },
 };
 

@@ -1,6 +1,6 @@
 import type { SupportTicket } from '../schemas/support-ticket.schema';
 
-type DeleteConfirmationModalProps = {
+export type DeleteConfirmationModalProps = {
   ticket: SupportTicket;
   onConfirm: (ticket: SupportTicket) => void;
   onCancel: () => void;

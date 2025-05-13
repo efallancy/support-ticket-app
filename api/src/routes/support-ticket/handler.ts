@@ -102,10 +102,44 @@ const deleteSupportTicketByIdHandler = async (req: Request, res: Response) => {
   }
 };
 
+const getSupportTicketSummaryAvailabilityHandler = async (
+  req: Request,
+  res: Response
+) => {
+  const isAvailable =
+    supportTicketService.getSupportTicketSummaryAvailability();
+
+  if (isAvailable) {
+    res.json({ data: isAvailable });
+  } else {
+    res
+      .status(StatusCodes.UNPROCESSABLE_ENTITY)
+      .json({ message: 'Not available' });
+  }
+};
+
+const getHighPropritySupportTicketSummaryHandler = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const summary =
+      await supportTicketService.getHighPrioritySupportTicketSummary();
+    res.json({ data: summary });
+  } catch (error) {
+    req.log.error(`Unable to obtain summary: ${(error as Error).message}`);
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ message: 'Summary not available' });
+  }
+};
+
 export {
   createSupportTicketHandler,
   deleteSupportTicketByIdHandler,
+  getHighPropritySupportTicketSummaryHandler,
   getSupportTicketByIdHandler,
   getSupportTicketsHandler,
+  getSupportTicketSummaryAvailabilityHandler,
   updateSupportTicketByIdHandler,
 };

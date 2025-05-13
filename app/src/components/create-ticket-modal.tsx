@@ -2,7 +2,7 @@ import { useState } from 'react';
 import type { SupportTicketCreate } from '../schemas/support-ticket.schema';
 import { supportTicketCreateSchema } from '../schemas/support-ticket.schema';
 
-type CreateTicketModalProps = {
+export type CreateTicketModalProps = {
   onCreate: (newTicket: SupportTicketCreate) => void;
   onClose: () => void;
 };
@@ -47,38 +47,44 @@ function CreateTicketModal({ onCreate, onClose }: CreateTicketModalProps) {
         <h2 className="text-2xl font-bold mb-4">Create New Ticket</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="block text-gray-700">Title</label>
-            <input
-              type="text"
-              name="title"
-              value={formData.title}
-              onChange={handleChange}
-              className="w-full p-2 border rounded"
-              required
-            />
+            <label className="block text-gray-700">
+              Title
+              <input
+                type="text"
+                name="title"
+                value={formData.title}
+                onChange={handleChange}
+                className="w-full p-2 border rounded"
+                required
+              />
+            </label>
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700">Description</label>
-            <textarea
-              name="description"
-              value={formData.description}
-              onChange={handleChange}
-              className="w-full p-2 border rounded"
-              required
-            />
+            <label className="block text-gray-700">
+              Description
+              <textarea
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                className="w-full p-2 border rounded"
+                required
+              />
+            </label>
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700">Priority</label>
-            <select
-              name="priority"
-              value={formData.priority}
-              onChange={handleChange}
-              className="w-full p-2 border rounded"
-            >
-              <option value="HIGH">High</option>
-              <option value="MEDIUM">Medium</option>
-              <option value="LOW">Low</option>
-            </select>
+            <label className="block text-gray-700">
+              Priority
+              <select
+                name="priority"
+                value={formData.priority}
+                onChange={handleChange}
+                className="w-full p-2 border rounded"
+              >
+                <option value="HIGH">High</option>
+                <option value="MEDIUM">Medium</option>
+                <option value="LOW">Low</option>
+              </select>
+            </label>
           </div>
           <div className="flex justify-end gap-2">
             <button

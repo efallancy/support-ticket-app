@@ -103,3 +103,37 @@ export async function deleteSupportTicket(id: string): Promise<void> {
     throw error;
   }
 }
+
+/**
+ * Checks if ticket summary feature is available
+ */
+export async function checkSummaryAvailability(): Promise<boolean> {
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/support-tickets/summary-available`
+    );
+    return response.ok;
+  } catch (error) {
+    console.error('Error checking summary availability:', error);
+    return false;
+  }
+}
+
+/**
+ * Fetches a summary of all tickets
+ */
+export async function fetchTicketSummary(): Promise<string> {
+  try {
+    const response = await fetch(`${API_BASE_URL}/support-tickets/summary`);
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch ticket summary: ${response.status}`);
+    }
+
+    const { data } = (await response.json()) as ApiResponse<string>;
+    return data;
+  } catch (error) {
+    console.error('Error fetching ticket summary:', error);
+    throw error;
+  }
+}
