@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "tsx --watch ./src/index.ts | pino-pretty",
     "lint": "eslint .",
-    "format": "prettier --write './src/**/*.{js,jsx,ts,tsx}'"
+    "format": "prettier --write './src/**/*.{js,jsx,ts,tsx}'",
+    "db:seed": "tsx ./scripts/seed.ts"
   },
   "keywords": [],
   "author": "",
