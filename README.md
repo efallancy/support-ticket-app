@@ -63,10 +63,10 @@ The following API endpoints are available:
 
 Basic functionality
 
-<video src="./assets/basic-functionality-overview.mp4" />
+<video src="assets/basic-functionality-overview.mp4"></video>
 
 ---
 
 Generating support tickets summary with AI
 
-<video src="./assets/generate-summary-with-ai.mp4" />
+<video src="assets/generate-summary-with-ai.mp4"></video>
