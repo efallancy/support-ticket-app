@@ -52,7 +52,7 @@ By default, the app and API will be started in:
 The following API endpoints are available:
 
 - `GET /support-tickets` - Retrieve all tickets
-- `POST /support-ickets` - Create a new ticket
+- `POST /support-tickets` - Create a new ticket
 - `GET /support-tickets/:id` - Retrieve a ticket by ID
 - `PUT /support-tickets/:id` - Update a ticket by ID
 - `DELETE /support-tickets/:id` - Delete a ticket by ID
@@ -63,10 +63,10 @@ The following API endpoints are available:
 
 Basic functionality
 
-<video src="assets/basic-functionality-overview.mp4"></video>
+<video src="assets/basic-functionality-overview.mp4" width="500px"></video>
 
 ---
 
 Generating support tickets summary with AI
 
-<video src="assets/generate-summary-with-ai.mp4"></video>
+<video src="assets/generate-summary-with-ai.mp4" width="500px"></video>
