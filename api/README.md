@@ -32,3 +32,7 @@ pnpm dev
 Running the command above will run the migration and seeding of data.
 
 The seeding script can be found in `./scripts/seed.ts`.
+
+Below is the command for performing migration and seeding the database:
+- `pnpm db:migrate` (perform DB migration)
+- `pnpm db:seed` (perform DB seeding)
