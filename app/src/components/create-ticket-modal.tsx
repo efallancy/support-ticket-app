@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import type { SupportTicket } from '../types/support-ticket';
+import type { SupportTicketCreate } from '../schemas/support-ticket.schema';
+import { supportTicketCreateSchema } from '../schemas/support-ticket.schema';
 
 type CreateTicketModalProps = {
-  onCreate: (newTicket: SupportTicket) => void;
+  onCreate: (newTicket: SupportTicketCreate) => void;
   onClose: () => void;
 };
 
@@ -10,7 +11,7 @@ function CreateTicketModal({ onCreate, onClose }: CreateTicketModalProps) {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
-    priority: 'Low',
+    priority: 'MEDIUM',
   });
 
   const handleChange = (
@@ -24,19 +25,19 @@ function CreateTicketModal({ onCreate, onClose }: CreateTicketModalProps) {
 
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!formData.title || !formData.description) {
-      alert('Title and Description are required.');
+
+    const maybeValidFormData = supportTicketCreateSchema.safeParse(formData);
+
+    if (!maybeValidFormData.success) {
+      alert(
+        maybeValidFormData.error.errors.map((err) => err.message).join(', ')
+      );
       return;
     }
 
-    onCreate({
-      ...formData,
-      id: crypto.randomUUID(),
-      status: 'Open', // Default status
-      createdAt: new Date(),
-    } as SupportTicket);
+    onCreate(maybeValidFormData.data);
 
-    setFormData({ title: '', description: '', priority: 'Low' });
+    setFormData({ title: '', description: '', priority: 'LOW' });
     onClose();
   };
 
@@ -74,9 +75,9 @@ function CreateTicketModal({ onCreate, onClose }: CreateTicketModalProps) {
               onChange={handleChange}
               className="w-full p-2 border rounded"
             >
-              <option value="High">High</option>
-              <option value="Medium">Medium</option>
-              <option value="Low">Low</option>
+              <option value="HIGH">High</option>
+              <option value="MEDIUM">Medium</option>
+              <option value="LOW">Low</option>
             </select>
           </div>
           <div className="flex justify-end gap-2">

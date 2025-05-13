@@ -1,4 +1,4 @@
-import type { SupportTicket } from '../types/support-ticket';
+import type { SupportTicket } from '../schemas/support-ticket.schema';
 
 type DeleteConfirmationModalProps = {
   ticket: SupportTicket;
@@ -16,7 +16,9 @@ function DeleteConfirmationModal({
       <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-bold mb-4">Confirm Delete</h2>
         <p className="mb-6">
-          Are you sure you want to delete the ticket "{ticket.title}"? This action cannot be undone.
+          Are you sure you want to delete the ticket{' '}
+          <span className="font-bold">"{ticket.title}"</span>? This action
+          cannot be undone.
         </p>
         <div className="flex justify-end gap-2">
           <button

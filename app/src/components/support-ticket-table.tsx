@@ -1,4 +1,4 @@
-import type { SupportTicket } from '../types/support-ticket';
+import type { SupportTicket } from '../schemas/support-ticket.schema';
 
 type SupportTicketTableProps = {
   tickets: SupportTicket[];
@@ -37,9 +37,9 @@ function SupportTicketTable({
               <td className="py-3 px-6 text-left">
                 <span
                   className={`px-2 py-1 rounded ${
-                    ticket.priority === 'High'
+                    ticket.priority === 'HIGH'
                       ? 'bg-red-200 text-red-800'
-                      : ticket.priority === 'Medium'
+                      : ticket.priority === 'MEDIUM'
                         ? 'bg-yellow-200 text-yellow-800'
                         : 'bg-green-200 text-green-800'
                   }`}
@@ -50,9 +50,9 @@ function SupportTicketTable({
               <td className="py-3 px-6 text-left">
                 <span
                   className={`px-2 py-1 rounded ${
-                    ticket.status === 'Open'
+                    ticket.status === 'OPEN'
                       ? 'bg-blue-200 text-blue-800'
-                      : ticket.status === 'In Progress'
+                      : ticket.status === 'IN_PROGRESS'
                         ? 'bg-orange-200 text-orange-800'
                         : 'bg-gray-200 text-gray-800'
                   }`}
@@ -61,7 +61,7 @@ function SupportTicketTable({
                 </span>
               </td>
               <td className="py-3 px-6 text-left">
-                {ticket.createdAt.toLocaleString('en-US', {
+                {new Date(ticket.createdAt).toLocaleString('en-US', {
                   dateStyle: 'short',
                   timeStyle: 'short',
                 })}

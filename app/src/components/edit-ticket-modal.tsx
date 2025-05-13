@@ -1,10 +1,11 @@
 import { useState } from 'react';
 
-import type { SupportTicket } from '../types/support-ticket';
+import { supportTicketUpdateSchema } from '../schemas/support-ticket.schema';
+import type { SupportTicketUpdate } from '../schemas/support-ticket.schema';
 
 type EditTicketModalProps = {
-  ticket: SupportTicket;
-  onSave: (ticket: SupportTicket) => void;
+  ticket: SupportTicketUpdate;
+  onSave: (ticket: SupportTicketUpdate) => void;
   onClose: () => void;
 };
 
@@ -22,6 +23,16 @@ function EditTicketModal({ ticket, onSave, onClose }: EditTicketModalProps) {
 
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const maybeValidFormData = supportTicketUpdateSchema.safeParse(formData);
+
+    if (!maybeValidFormData.success) {
+      alert(
+        maybeValidFormData.error.errors.map((err) => err.message).join(', ')
+      );
+      return;
+    }
+
     onSave(formData);
   };
 
@@ -59,9 +70,9 @@ function EditTicketModal({ ticket, onSave, onClose }: EditTicketModalProps) {
               onChange={handleChange}
               className="w-full p-2 border rounded"
             >
-              <option value="High">High</option>
-              <option value="Medium">Medium</option>
-              <option value="Low">Low</option>
+              <option value="HIGH">High</option>
+              <option value="MEDIUM">Medium</option>
+              <option value="LOW">Low</option>
             </select>
           </div>
           <div className="mb-4">
@@ -72,9 +83,10 @@ function EditTicketModal({ ticket, onSave, onClose }: EditTicketModalProps) {
               onChange={handleChange}
               className="w-full p-2 border rounded"
             >
-              <option value="Open">Open</option>
-              <option value="In Progress">In Progress</option>
-              <option value="Closed">Closed</option>
+              <option value="OPEN">Open</option>
+              <option value="IN_PROGRESS">In Progress</option>
+              <option value="RESOLVED">Resolved</option>
+              <option value="CLOSED">Closed</option>
             </select>
           </div>
           <div className="flex justify-end gap-2">
