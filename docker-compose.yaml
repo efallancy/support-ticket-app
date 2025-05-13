@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: support_ticket
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
+    name: pgdata-support-ticket

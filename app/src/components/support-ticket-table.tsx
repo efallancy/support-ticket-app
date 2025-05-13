@@ -95,4 +95,4 @@ function SupportTicketTable({
   );
 }
 
-export { SupportTicketTable, type SupportTicket };
+export { SupportTicketTable };

@@ -1,10 +1,9 @@
-import { useState } from 'react';
-import { EditTicketModal } from './components/edit-ticket-modal';
-import {
-  type SupportTicket,
-  SupportTicketTable,
-} from './components/support-ticket-table';
-import { CreateTicketModal } from './components/create-ticket-modal';
+import { useEffect, useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import type { SupportTicket } from './types/support-ticket';
+import { MainLayout } from './components/main-layout';
+import { HomePage } from './pages/home-page';
+import { EditTicketPage } from './pages/edit-ticket-page';
 
 const initialTickets: SupportTicket[] = [
   {
@@ -35,117 +34,50 @@ const initialTickets: SupportTicket[] = [
 
 function App() {
   const [tickets, setTickets] = useState(initialTickets);
-  const [editingTicket, setEditingTicket] = useState<SupportTicket | null>(
-    null
-  );
-  const [statusFilter, setStatusFilter] = useState('');
-  const [priorityFilter, setPriorityFilter] = useState('');
-  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+
+  useEffect(() => {
+    // fetch('http://localhost:3000/support-tickets')
+    //   .then((res) => res.json())
+    //   .then((res) => {
+    //     setTickets(res.data);
+    //   });
+  }, []);
 
   const handleCreate = (newTicket: SupportTicket) => {
     setTickets([...tickets, newTicket]);
-  };
-
-  const handleEdit = (ticket: SupportTicket) => {
-    setEditingTicket(ticket);
   };
 
   const handleSave = (updatedTicket: SupportTicket) => {
     setTickets(
       tickets.map((t) => (t.id === updatedTicket.id ? updatedTicket : t))
     );
-    setEditingTicket(null);
   };
 
   const handleDelete = (ticket: SupportTicket) => {
-    if (
-      window.confirm(
-        `Are you sure you want to delete "${ticket.title}" ticket?`
-      )
-    ) {
-      setTickets(tickets.filter((t) => t.id !== ticket.id));
-    }
+    setTickets(tickets.filter((t) => t.id !== ticket.id));
   };
-
-  const handleCloseModal = () => {
-    setEditingTicket(null);
-  };
-
-  const handleCloseCreateModal = () => {
-    setIsCreateModalOpen(false);
-  };
-
-  const filteredTickets = tickets.filter((ticket) => {
-    return (
-      (statusFilter ? ticket.status === statusFilter : true) &&
-      (priorityFilter ? ticket.priority === priorityFilter : true)
-    );
-  });
 
   return (
-    <div className="bg-gray-200 min-h-screen">
-      <div className="container mx-auto p-6">
-        <h1 className="text-3xl font-bold mb-6">Support Tickets</h1>
-        <div className="mb-6 flex justify-between align-baseline">
-          <div className="flex gap-4">
-            <div>
-              <label className="block text-gray-700 mb-1">Status</label>
-              <select
-                value={statusFilter}
-                onChange={(e) => setStatusFilter(e.target.value)}
-                className="p-2 border rounded"
-              >
-                <option value="">All statuses</option>
-                <option value="Open">Open</option>
-                <option value="In Progress">In Progress</option>
-                <option value="Closed">Closed</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-gray-700 mb-1">Priority</label>
-              <select
-                value={priorityFilter}
-                onChange={(e) => setPriorityFilter(e.target.value)}
-                className="p-2 border rounded"
-              >
-                <option value="">All priorities</option>
-                <option value="High">High</option>
-                <option value="Medium">Medium</option>
-                <option value="Low">Low</option>
-              </select>
-            </div>
-          </div>
-          <div>
-            <button
-              onClick={() => setIsCreateModalOpen(true)}
-              className="px-4 py-2 bg-black text-white rounded hover:bg-gray-700 hover:cursor-pointer"
-            >
-              New Ticket
-            </button>
-          </div>
-        </div>
-        <div className="overflow-x-auto">
-          <SupportTicketTable
-            tickets={filteredTickets}
-            onEdit={handleEdit}
-            onDelete={handleDelete}
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<MainLayout />}>
+          <Route
+            index
+            element={
+              <HomePage
+                tickets={tickets}
+                onCreateTicket={handleCreate}
+                onDeleteTicket={handleDelete}
+              />
+            }
           />
-          {isCreateModalOpen && (
-            <CreateTicketModal
-              onCreate={handleCreate}
-              onClose={handleCloseCreateModal}
-            />
-          )}
-          {editingTicket && (
-            <EditTicketModal
-              ticket={editingTicket}
-              onSave={handleSave}
-              onClose={handleCloseModal}
-            />
-          )}
-        </div>
-      </div>
-    </div>
+          <Route
+            path="edit/:id"
+            element={<EditTicketPage tickets={tickets} onSave={handleSave} />}
+          />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

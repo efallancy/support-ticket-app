@@ -1,0 +1,31 @@
+datasource db {
+  url      = env("DATABASE_URL")
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+enum StatusEnum {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+enum PriorityEnum {
+  HIGH
+  MEDIUM
+  LOW
+}
+
+model SupportTicket {
+  id          String       @id @default(uuid())
+  title       String
+  description String
+  status      StatusEnum   @default(OPEN)
+  priority    PriorityEnum @default(MEDIUM)
+  createdAt   DateTime     @default(now())
+}

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import type { SupportTicket } from './support-ticket-table';
+import type { SupportTicket } from '../types/support-ticket';
 
 type EditTicketModalProps = {
   ticket: SupportTicket;
