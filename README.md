@@ -25,6 +25,12 @@ You'll also need:
 - Docker (for the database)
 - Node.js (v18 or later recommended)
 
+This project is structured into:
+- `api`: Backend API server, built with Node.js and Express.js
+- `app`: Frontend React application
+
+It uses [Turborepo](https://turbo.build/) to get the benefit of having to run the services concurrently.
+
 ### 2. Install Dependencies
 
 From the root of the project, run:
