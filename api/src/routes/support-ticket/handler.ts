@@ -118,7 +118,7 @@ const getSupportTicketSummaryAvailabilityHandler = async (
   }
 };
 
-const getHighPropritySupportTicketSummaryHandler = async (
+const getHighPrioritySupportTicketSummaryHandler = async (
   req: Request,
   res: Response
 ) => {
@@ -137,7 +137,7 @@ const getHighPropritySupportTicketSummaryHandler = async (
 export {
   createSupportTicketHandler,
   deleteSupportTicketByIdHandler,
-  getHighPropritySupportTicketSummaryHandler,
+  getHighPrioritySupportTicketSummaryHandler,
   getSupportTicketByIdHandler,
   getSupportTicketsHandler,
   getSupportTicketSummaryAvailabilityHandler,
