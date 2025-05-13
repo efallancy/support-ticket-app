@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "tsx --watch ./src/index.ts | pino-pretty",
+    "predev": "pnpm run db:migrate && pnpm run db:seed",
     "lint": "eslint .",
     "format": "prettier --write './src/**/*.{js,jsx,ts,tsx}'",
     "db:seed": "tsx ./scripts/seed.ts",
