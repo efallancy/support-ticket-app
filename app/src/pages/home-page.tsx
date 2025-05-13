@@ -115,9 +115,10 @@ function HomePage() {
               className="p-2 border rounded"
             >
               <option value="">All statuses</option>
-              <option value="Open">Open</option>
-              <option value="In Progress">In Progress</option>
-              <option value="Closed">Closed</option>
+              <option value="OPEN">Open</option>
+              <option value="IN_PROGRESS">In Progress</option>
+              <option value="RESOLVED">Closed</option>
+              <option value="CLOSED">Closed</option>
             </select>
           </div>
           <div>
@@ -128,9 +129,9 @@ function HomePage() {
               className="p-2 border rounded"
             >
               <option value="">All priorities</option>
-              <option value="High">High</option>
-              <option value="Medium">Medium</option>
-              <option value="Low">Low</option>
+              <option value="HIGH">High</option>
+              <option value="MEDIUM">Medium</option>
+              <option value="LOW">Low</option>
             </select>
           </div>
         </div>
