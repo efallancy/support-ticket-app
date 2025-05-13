@@ -61,6 +61,12 @@ The following API endpoints are available:
 
 ## Screen captures
 
-![Basic functionality overview](./assets/basic-functionality-overview.mp4)
+Basic functionality
 
-![Generating support tickets summary with AI](./assets/generate-summary-with-ai.mp4)
+<video src="./assets/basic-functionality-overview.mp4" />
+
+---
+
+Generating support tickets summary with AI
+
+<video src="./assets/generate-summary-with-ai.mp4" />
