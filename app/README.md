@@ -7,7 +7,7 @@ A UI that showcases the support ticket platform management.
 Ensure all dependencies are installed by running the following command:
 
 ```sh
-pnpm install --frozen-lockfile
+pnpm install
 ```
 
 Run the following command to start the app:

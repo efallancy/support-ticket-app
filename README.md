@@ -30,7 +30,7 @@ You'll also need:
 From the root of the project, run:
 
 ```sh
-pnpm install --frozen-lockfile
+pnpm install
 ```
 
 ### 3. Configure Environment Variables

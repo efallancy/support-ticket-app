@@ -7,7 +7,7 @@ An API server that serves the Support Ticket platform.
 Ensure all dependencies are installed by running the following command:
 
 ```sh
-pnpm install --frozen-lockfile
+pnpm install
 ```
 
 Ensure required environment variables are set:
